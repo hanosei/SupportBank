@@ -8,8 +8,4 @@ public class Transaction
     public string? To { get; set;}
     public float Amount { get; set;}
 
-    internal object getFrom()
-    {
-        throw new NotImplementedException();
-    }
 }

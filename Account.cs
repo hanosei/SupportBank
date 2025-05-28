@@ -2,9 +2,31 @@ using System;
 
 public class Account
 {
-    private string? Name { get; set; }
-    private float Owed { get; set; }
-    private float IsOwed { get; set; }
-    private float TotalBalance { get; set;}
-    private List<Transaction>? Transactions { get; set; } 
+    public string? Name { get; set; }
+    public float Owed { get; set; }
+    public float IsOwed { get; set; }
+    public float TotalBalance { get; set;}
+    public List<Transaction>? AccountTransactions { get; set; } 
+
+    public Account(string name){
+        this.Name = name;
+        this.Owed = 0;
+        this.IsOwed = 0;
+        this.TotalBalance = 0;
+        this.AccountTransactions = new List<Transaction>();
+    }
+
+    public void UpdateTransaction(Transaction record){
+        AccountTransactions.Add(record);
+    }
+
+    public void updateIsOwed(float amount){
+        IsOwed += amount;
+        TotalBalance += amount;
+    }
+
+    public void updateOwed(float amount){
+        Owed -= amount;
+        TotalBalance -= amount;
+    }
 }

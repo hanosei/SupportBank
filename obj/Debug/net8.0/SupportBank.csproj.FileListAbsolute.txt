@@ -15,3 +15,4 @@ C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\ref\SupportBank.dll
 C:\Users\HanOse\Training\SupportBank\bin\Debug\net8.0\CsvHelper.dll
 C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.csproj.AssemblyReference.cache
 C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportB.540BFCCB.Up2Date
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.sourcelink.json
