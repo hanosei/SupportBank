@@ -1,0 +1,17 @@
+C:\Users\HanOse\Training\SupportBank\bin\Debug\net8.0\SupportBank.exe
+C:\Users\HanOse\Training\SupportBank\bin\Debug\net8.0\SupportBank.deps.json
+C:\Users\HanOse\Training\SupportBank\bin\Debug\net8.0\SupportBank.runtimeconfig.json
+C:\Users\HanOse\Training\SupportBank\bin\Debug\net8.0\SupportBank.dll
+C:\Users\HanOse\Training\SupportBank\bin\Debug\net8.0\SupportBank.pdb
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.AssemblyInfoInputs.cache
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.AssemblyInfo.cs
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.csproj.CoreCompileInputs.cache
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.dll
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\refint\SupportBank.dll
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.pdb
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.genruntimeconfig.cache
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\ref\SupportBank.dll
+C:\Users\HanOse\Training\SupportBank\bin\Debug\net8.0\CsvHelper.dll
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportBank.csproj.AssemblyReference.cache
+C:\Users\HanOse\Training\SupportBank\obj\Debug\net8.0\SupportB.540BFCCB.Up2Date

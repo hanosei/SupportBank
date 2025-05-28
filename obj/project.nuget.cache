@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "B4Skn489pkA=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\HanOse\\Training\\SupportBank\\SupportBank.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\HanOse\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
