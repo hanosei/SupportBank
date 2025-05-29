@@ -79,7 +79,7 @@ namespace SupportBank
         {
             bool nameCheck = false;
             while (!nameCheck) {
-                string name = getUserInput();
+                string? name = getUserInput();
                 try
                 {
                     Account account = _accounts[name!];
@@ -98,7 +98,7 @@ namespace SupportBank
             }        
         }
 
-        public string getUserInput()
+        public string? getUserInput()
 
         {
             Console.WriteLine("Enter a name: ");
