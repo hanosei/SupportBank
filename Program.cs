@@ -27,7 +27,7 @@ public class Program
         LogManager.Configuration = config;
 
         var bank = new SupportBank();
-        bank.ReadCSV("./Transactions2014.csv");
+        bank.ReadCSV("./DodgyTransactions2015.csv");
         bank.CreateAccounts();
         bool validUserOption = false;
         while (!validUserOption)

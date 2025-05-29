@@ -9,6 +9,7 @@ using NLog;
 using NLog.Config;
 using NLog.Targets;
 using NLog.Fluent;
+using System.Reflection;
 
 namespace SupportBank
 {
@@ -20,28 +21,50 @@ namespace SupportBank
 
         public void ReadCSV(string path)
         {
+            string? methodName = MethodBase.GetCurrentMethod()?.Name;
 
-            using var reader = new StreamReader(path);
-            using var csv = new CsvReader(reader, CultureInfo.CurrentCulture);
-
-            csv.Read();
-            Logger.Debug("Starting to read the file...");
-            csv.ReadHeader();
-            while (csv.Read())
+            try
             {
-                var record = new Transaction
+
+                using var reader = new StreamReader(path);
+                using var csv = new CsvReader(reader, CultureInfo.CurrentCulture);
+
+                csv.Read();
+                Logger.Info("Starting to read the file...");
+                csv.ReadHeader();
+                while (csv.Read())
                 {
-                    Date = csv.GetField<DateTime>("Date"),
-                    From = csv.GetField("From"),
-                    To = csv.GetField("To"),
-                    Narrative = csv.GetField("Narrative"),
-                    Amount = csv.GetField<float>("Amount"),
-                };
-                transactions.Add(record);
+                    DateTime dateTemp;
+                    float amountTemp;
+
+                    if (DateTime.TryParse(csv.GetField("Date"), out dateTemp) && (float.TryParse(csv.GetField("Amount"), out amountTemp)) && !(string.IsNullOrEmpty(csv.GetField("To"))) && !(string.IsNullOrEmpty(csv.GetField("From"))) && !(string.IsNullOrEmpty(csv.GetField("Narrative"))))
+                    {
+                        var record = new Transaction
+                        {
+                            Date = dateTemp,
+                            From = csv.GetField("From"),
+                            To = csv.GetField("To"),
+                            Narrative = csv.GetField("Narrative"),
+                            Amount = amountTemp,
+                        };
+                        transactions.Add(record);
+                    }
+                    else
+                    {
+                        Logger.Error("Date: " + csv.GetField("Date") + " From: " + csv.GetField("From") + " To: " + csv.GetField("To") + " Narrative: " + csv.GetField("Narrative") + " Amount: " + csv.GetField("Amount"));
+
+                    }
+
+
+                }
+                Logger.Info("File has been read...");
+            }
+            catch (Exception e)
+            {
+                Logger.Error(methodName + " " + e);
             }
 
         }
-
         public void CreateAccounts()
         {
             foreach (var record in transactions)
@@ -97,15 +120,16 @@ namespace SupportBank
                         Console.WriteLine($"Transaction: {record.Date}, {record.Narrative}, {record.From}, {record.To}, {record.Amount}");
                     }
                 }
-                catch (KeyNotFoundException e)
+                catch (KeyNotFoundException)
                 {
-                    Console.WriteLine("Name not found in file");                    
+                    Logger.Error("Name not found in the file");
+                    Console.WriteLine("Name not found in file");
                 }
             }
         }
 
 
 
-     
+
     }
 }
