@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HanOse\\Training\\SupportBank\\SupportBank.csproj": {}
+    "C:\\Users\\PreKri\\Training\\CSharp\\SupportBank\\SupportBank.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HanOse\\Training\\SupportBank\\SupportBank.csproj": {
+    "C:\\Users\\PreKri\\Training\\CSharp\\SupportBank\\SupportBank.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HanOse\\Training\\SupportBank\\SupportBank.csproj",
+        "projectUniqueName": "C:\\Users\\PreKri\\Training\\CSharp\\SupportBank\\SupportBank.csproj",
         "projectName": "SupportBank",
-        "projectPath": "C:\\Users\\HanOse\\Training\\SupportBank\\SupportBank.csproj",
-        "packagesPath": "C:\\Users\\HanOse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HanOse\\Training\\SupportBank\\obj\\",
+        "projectPath": "C:\\Users\\PreKri\\Training\\CSharp\\SupportBank\\SupportBank.csproj",
+        "packagesPath": "C:\\Users\\PreKri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PreKri\\Training\\CSharp\\SupportBank\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HanOse\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\PreKri\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

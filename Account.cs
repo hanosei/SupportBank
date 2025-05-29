@@ -15,9 +15,13 @@ public class Account
         this.TotalBalance = 0;
         this.AccountTransactions = new List<Transaction>();
     }
+    
+   
 
-    public void UpdateTransaction(Transaction record){
-        AccountTransactions.Add(record);
+    public void UpdateTransaction(Transaction record)
+    {
+       AccountTransactions?.Add(record);         
+
     }
 
     public void updateIsOwed(float amount){
@@ -26,7 +30,7 @@ public class Account
     }
 
     public void updateOwed(float amount){
-        Owed -= amount;
+        Owed += amount;
         TotalBalance -= amount;
     }
 }

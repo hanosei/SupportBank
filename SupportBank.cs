@@ -32,62 +32,88 @@ namespace SupportBank
                 };
                 transactions.Add(record);
             }
-           
-          }
 
-        public void CreateAccounts(){
+        }
+
+        public void CreateAccounts()
+        {
             foreach (var record in transactions)
             {
                 Account account;
-                if (!_accounts.ContainsKey(record.From))
+                if (!_accounts.ContainsKey(record.From!))
                 {
-                    account = new Account(record.From);
-                    _accounts.Add(record.From, account);
+                    account = new Account(record.From!);
+                    _accounts.Add(record.From!, account);
                 }
-                if (!_accounts.ContainsKey(record.To))
+                if (!_accounts.ContainsKey(record.To!))
                 {
-                    account = new Account(record.To);
-                    _accounts.Add(record.To, account);
+                    account = new Account(record.To!);
+                    _accounts.Add(record.To!, account);
                 }
-                if (_accounts.ContainsKey(record.From)){
-                    account = _accounts[record.From];
+                if (_accounts.ContainsKey(record.From!))
+                {
+                    account = _accounts[record.From!];
                     account.updateIsOwed(record.Amount);
                     account.UpdateTransaction(record);
                 }
-                if (_accounts.ContainsKey(record.To)){
-                    account = _accounts[record.To];
+                if (_accounts.ContainsKey(record.To!))
+                {
+                    account = _accounts[record.To!];
                     account.updateOwed(record.Amount);
                     account.UpdateTransaction(record);
                 }
-             }
+
+            }
         }
 
         public void PrintAllAccounts()
         {
             foreach (var account in _accounts.Values)
-            {    
-                Console.WriteLine($"{account.Name} owes{account.Owed}, and is owed{account.IsOwed} The total {account.TotalBalance}");
+            {
+                Console.WriteLine($"{account.Name} owes {account.Owed}, and is owed {account.IsOwed} The total {account.TotalBalance}");
             }
         }
 
-        public void PrintAnAccount(string name)
+        public void PrintAnAccount()
         {
-           
-            Account account = _accounts[name];
-                            
-            Console.WriteLine($"Account: {name}");
-            foreach (var record in account.AccountTransactions) {
-                Console.WriteLine($"Transaction: {record.Date}, {record.Narrative}, {record.From}, {record.To}, {record.Amount}");
-            }
+            bool nameCheck = false;
+            while (!nameCheck) {
+                string name = getUserInput();
+                try
+                {
+                    Account account = _accounts[name!];
+                    nameCheck = true;
+                    Console.WriteLine($"Account: {name}");
+                    foreach (var record in account.AccountTransactions!)
+                    {
+                        Console.WriteLine($"Transaction: {record.Date}, {record.Narrative}, {record.From}, {record.To}, {record.Amount}");
+                    }
+                }
+                catch (KeyNotFoundException e)
+                {
+                    Console.WriteLine("Name not found in file");
+                    name = getUserInput();
+                }
+            }        
         }
+
+        public string getUserInput()
+
+        {
+            Console.WriteLine("Enter a name ");
+            string? userInput = Console.ReadLine();
+            return userInput;
+
+        }        
+    
 
         static void Main(string[] args)
         {
             var bank = new SupportBank();
             bank.ReadCSV("./Transactions2014.csv");
             bank.CreateAccounts();
-            bank.PrintAllAccounts();
-            bank.PrintAnAccount("Todd");
+            //  bank.PrintAllAccounts();
+            bank.PrintAnAccount();
         }
     }
 }
