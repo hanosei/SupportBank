@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks.Dataflow;
 using CsvHelper;
 using Microsoft.VisualBasic;
 using static System.IO.StreamReader;
@@ -100,11 +101,19 @@ namespace SupportBank
         public string getUserInput()
 
         {
-            Console.WriteLine("Enter a name ");
+            Console.WriteLine("Enter a name: ");
             string? userInput = Console.ReadLine();
             return userInput;
 
-        }        
+        }
+        public int getUserOptions()
+        {   
+
+            Console.WriteLine("Select from the following options \n1. Get list of all accounts \n2. Get accounts by name\nEnter 1 or 2");
+            int option;
+            int.TryParse(Console.ReadLine(), out option);
+            return option;
+        } 
     
 
         static void Main(string[] args)
@@ -112,8 +121,26 @@ namespace SupportBank
             var bank = new SupportBank();
             bank.ReadCSV("./Transactions2014.csv");
             bank.CreateAccounts();
-            //  bank.PrintAllAccounts();
-            bank.PrintAnAccount();
+            bool validUserOption = false;
+            while (!validUserOption)
+            {
+                int userOption = bank.getUserOptions();
+                if (userOption == 1 || userOption == 2)
+                {
+                    validUserOption = true;
+                    if (userOption == 1)
+                    {
+                        bank.PrintAllAccounts();
+                    }
+                    else
+                    {
+                        bank.PrintAnAccount();
+                    }
+                }
+               
+            }
+            
+            
         }
     }
 }
