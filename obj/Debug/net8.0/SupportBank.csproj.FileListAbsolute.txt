@@ -34,3 +34,4 @@ C:\Users\PreKri\Training\CSharp\SupportBank\obj\Debug\net8.0\refint\SupportBank.
 C:\Users\PreKri\Training\CSharp\SupportBank\obj\Debug\net8.0\SupportBank.pdb
 C:\Users\PreKri\Training\CSharp\SupportBank\obj\Debug\net8.0\SupportBank.genruntimeconfig.cache
 C:\Users\PreKri\Training\CSharp\SupportBank\obj\Debug\net8.0\ref\SupportBank.dll
+C:\Users\PreKri\Training\CSharp\SupportBank\bin\Debug\net8.0\NLog.dll

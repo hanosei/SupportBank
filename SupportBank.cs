@@ -5,11 +5,16 @@ using CsvHelper;
 using Microsoft.VisualBasic;
 using static System.IO.StreamReader;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
+using NLog.Fluent;
 
 namespace SupportBank
 {
     class SupportBank
     {
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         public Dictionary<string, Account> _accounts = new Dictionary<string, Account>();
         public List<Transaction> transactions = new List<Transaction>();
 
@@ -20,6 +25,7 @@ namespace SupportBank
             using var csv = new CsvReader(reader, CultureInfo.CurrentCulture);
 
             csv.Read();
+            Logger.Debug("Starting to read the file...");
             csv.ReadHeader();
             while (csv.Read())
             {
@@ -78,8 +84,9 @@ namespace SupportBank
         public void PrintAnAccount()
         {
             bool nameCheck = false;
-            while (!nameCheck) {
-                string? name = getUserInput();
+            while (!nameCheck)
+            {
+                string? name = UserInput.getUserInput();
                 try
                 {
                     Account account = _accounts[name!];
@@ -92,55 +99,13 @@ namespace SupportBank
                 }
                 catch (KeyNotFoundException e)
                 {
-                    Console.WriteLine("Name not found in file");
-                    name = getUserInput();
+                    Console.WriteLine("Name not found in file");                    
                 }
-            }        
-        }
-
-        public string? getUserInput()
-
-        {
-            Console.WriteLine("Enter a name: ");
-            string? userInput = Console.ReadLine();
-            return userInput;
-
-        }
-        public int getUserOptions()
-        {   
-
-            Console.WriteLine("Select from the following options \n1. Get list of all accounts \n2. Get accounts by name\nEnter 1 or 2");
-            int option;
-            int.TryParse(Console.ReadLine(), out option);
-            return option;
-        } 
-    
-
-        static void Main(string[] args)
-        {
-            var bank = new SupportBank();
-            bank.ReadCSV("./Transactions2014.csv");
-            bank.CreateAccounts();
-            bool validUserOption = false;
-            while (!validUserOption)
-            {
-                int userOption = bank.getUserOptions();
-                if (userOption == 1 || userOption == 2)
-                {
-                    validUserOption = true;
-                    if (userOption == 1)
-                    {
-                        bank.PrintAllAccounts();
-                    }
-                    else
-                    {
-                        bank.PrintAnAccount();
-                    }
-                }
-               
             }
-            
-            
         }
+
+
+
+     
     }
 }

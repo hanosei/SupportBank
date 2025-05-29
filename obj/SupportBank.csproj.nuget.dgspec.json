@@ -46,6 +46,10 @@
             "CsvHelper": {
               "target": "Package",
               "version": "[33.0.1, )"
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.5, )"
             }
           },
           "imports": [

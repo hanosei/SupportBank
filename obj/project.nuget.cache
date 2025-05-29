@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "OxPi4VympxE=",
+  "dgSpecHash": "7okF9v23euk=",
   "success": true,
   "projectFilePath": "C:\\Users\\PreKri\\Training\\CSharp\\SupportBank\\SupportBank.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\PreKri\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512"
+    "C:\\Users\\PreKri\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512",
+    "C:\\Users\\PreKri\\.nuget\\packages\\nlog\\4.7.5\\nlog.4.7.5.nupkg.sha512"
   ],
   "logs": []
 }
