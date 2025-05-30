@@ -17,7 +17,6 @@ public class Program
     {
         var config = new LoggingConfiguration();
         string startupPath = System.IO.Directory.GetCurrentDirectory();
-        Console.WriteLine($"{startupPath}/SupportBank.log");
         var target = new FileTarget
         { FileName = $"{startupPath}/SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
         config.AddTarget("File Logger", target);
@@ -28,11 +27,15 @@ public class Program
         string TransactionJSONFile = "./DataFiles/Transactions2013.json";
 
         var bank = new SupportBank();
-        
-        // bank.ReadTransactions(TransactionCSVFile);
-        bank.ReadTransactionsFromJSON(TransactionJSONFile);
+
+        bank.ImportFile(TransactionCSVFile);
+
+        // bank.ReadTransactionsFromCSV(TransactionCSVFile);
+        // bank.ReadTransactionsFromJSON(TransactionJSONFile);
         bank.CreateAccounts();
+
         bool validUserOption = false;
+
         while (!validUserOption)
         {
             int userOption = UserInput.getUserOptions();

@@ -39,7 +39,6 @@ class FileProcessor
         {
             var jsonString = File.ReadAllText(path);
             List<dynamic>? data = JsonSerializer.Deserialize<List<dynamic>>(jsonString);
-            // var data = JsonSerializer.Deserialize<dynamic>(jsonString);
             return data!;
         }
         catch (Exception e)

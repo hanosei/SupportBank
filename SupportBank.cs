@@ -19,39 +19,60 @@ namespace SupportBank
         public Dictionary<string, Account> _accounts = new Dictionary<string, Account>();
         public List<Transaction> transactions = new List<Transaction>();
 
+        public void ImportFile(string filename)
+        {
+            string extension = Path.GetExtension(filename);
+            if (filename.EndsWith(".csv"))
+            {
+                ReadTransactionsFromCSV(filename);
+            }
+            else if (filename.EndsWith(".json"))
+            {
+                ReadTransactionsFromJSON(filename);
+            }
+            else
+            {
+                Console.WriteLine("Unsupported file type.");
+            }
+        }
+
         public void ReadTransactionsFromJSON(string path)
         {
             string? methodName = MethodBase.GetCurrentMethod()?.Name;
             try
             {
+
                 List<dynamic> data = FileProcessor.ReadJSON(path);
-
-                float amount = 0;
-                DateTime date = new DateTime();
-
-                foreach (var item in data)
+                if (data != null)
                 {
-                    if (item.GetProperty("Amount").TryGetSingle(out amount) &&
-                    DateTime.TryParse(item.GetProperty("Date").GetString(), out date) &&
-                    !(string.IsNullOrEmpty(item.GetProperty("ToAccount").GetString()))
-                             && !(string.IsNullOrEmpty(item.GetProperty("FromAccount").GetString()))
-                             && !(string.IsNullOrEmpty(item.GetProperty("Narrative").GetString())))
+
+                    float amount = 0;
+                    DateTime date = new DateTime();
+
+                    foreach (var item in data)
                     {
-                        var record = new Transaction
+                        if (item.GetProperty("Amount").TryGetSingle(out amount) &&
+                        DateTime.TryParse(item.GetProperty("Date").GetString(), out date) &&
+                        !(string.IsNullOrEmpty(item.GetProperty("ToAccount").GetString()))
+                                 && !(string.IsNullOrEmpty(item.GetProperty("FromAccount").GetString()))
+                                 && !(string.IsNullOrEmpty(item.GetProperty("Narrative").GetString())))
                         {
-                            Date = date,
-                            From = item.GetProperty("FromAccount").GetString(),
-                            To = item.GetProperty("ToAccount").GetString(),
-                            Narrative = item.GetProperty("Narrative").GetString(),
-                            Amount = amount,
-                        };
-                        transactions.Add(record);
-                        
-                    }
-                    else
-                    {
-                        Logger.Error("Date: " + item.GetProperty("Date").GetString() + " From: " + item.GetProperty("FromAccount").GetString()
-                        + " To: " + item.GetProperty("ToAccount").GetString() + " Narrative: " + item.GetProperty("Narrative").GetString() + " Amount: " + item.GetProperty("Amount").GetSingle());
+                            var record = new Transaction
+                            {
+                                Date = date,
+                                From = item.GetProperty("FromAccount").GetString(),
+                                To = item.GetProperty("ToAccount").GetString(),
+                                Narrative = item.GetProperty("Narrative").GetString(),
+                                Amount = amount,
+                            };
+                            transactions.Add(record);
+
+                        }
+                        else
+                        {
+                            Logger.Error("Date: " + item.GetProperty("Date").GetString() + " From: " + item.GetProperty("FromAccount").GetString()
+                            + " To: " + item.GetProperty("ToAccount").GetString() + " Narrative: " + item.GetProperty("Narrative").GetString() + " Amount: " + item.GetProperty("Amount").GetSingle());
+                        }
                     }
                 }
             }
@@ -60,15 +81,15 @@ namespace SupportBank
                 Logger.Error(methodName + " " + e);
             }
 
+
         }
 
-        public void ReadTransactions(string path)
+        public void ReadTransactionsFromCSV(string path)
         {
             string? methodName = MethodBase.GetCurrentMethod()?.Name;
             try
             {
                 var csv = FileProcessor.ReadCSV(path);
-                Console.WriteLine(csv);
                 if (csv != null)
                 {
                     csv.Read();
