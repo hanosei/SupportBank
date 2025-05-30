@@ -19,45 +19,41 @@ namespace SupportBank
         public Dictionary<string, Account> _accounts = new Dictionary<string, Account>();
         public List<Transaction> transactions = new List<Transaction>();
 
-        public void ReadCSV(string path)
+        public void ReadTransactionsFromJSON(string path)
         {
             string? methodName = MethodBase.GetCurrentMethod()?.Name;
-
             try
             {
+                List<dynamic> data = FileProcessor.ReadJSON(path);
 
-                using var reader = new StreamReader(path);
-                using var csv = new CsvReader(reader, CultureInfo.CurrentCulture);
+                float amount = 0;
+                DateTime date = new DateTime();
 
-                csv.Read();
-                Logger.Info("Starting to read the file...");
-                csv.ReadHeader();
-                while (csv.Read())
+                foreach (var item in data)
                 {
-                    DateTime dateTemp;
-                    float amountTemp;
-
-                    if (DateTime.TryParse(csv.GetField("Date"), out dateTemp) && (float.TryParse(csv.GetField("Amount"), out amountTemp)) && !(string.IsNullOrEmpty(csv.GetField("To"))) && !(string.IsNullOrEmpty(csv.GetField("From"))) && !(string.IsNullOrEmpty(csv.GetField("Narrative"))))
+                    if (item.GetProperty("Amount").TryGetSingle(out amount) &&
+                    DateTime.TryParse(item.GetProperty("Date").GetString(), out date) &&
+                    !(string.IsNullOrEmpty(item.GetProperty("ToAccount").GetString()))
+                             && !(string.IsNullOrEmpty(item.GetProperty("FromAccount").GetString()))
+                             && !(string.IsNullOrEmpty(item.GetProperty("Narrative").GetString())))
                     {
                         var record = new Transaction
                         {
-                            Date = dateTemp,
-                            From = csv.GetField("From"),
-                            To = csv.GetField("To"),
-                            Narrative = csv.GetField("Narrative"),
-                            Amount = amountTemp,
+                            Date = date,
+                            From = item.GetProperty("FromAccount").GetString(),
+                            To = item.GetProperty("ToAccount").GetString(),
+                            Narrative = item.GetProperty("Narrative").GetString(),
+                            Amount = amount,
                         };
                         transactions.Add(record);
+                        
                     }
                     else
                     {
-                        Logger.Error("Date: " + csv.GetField("Date") + " From: " + csv.GetField("From") + " To: " + csv.GetField("To") + " Narrative: " + csv.GetField("Narrative") + " Amount: " + csv.GetField("Amount"));
-
+                        Logger.Error("Date: " + item.GetProperty("Date").GetString() + " From: " + item.GetProperty("FromAccount").GetString()
+                        + " To: " + item.GetProperty("ToAccount").GetString() + " Narrative: " + item.GetProperty("Narrative").GetString() + " Amount: " + item.GetProperty("Amount").GetSingle());
                     }
-
-
                 }
-                Logger.Info("File has been read...");
             }
             catch (Exception e)
             {
@@ -65,6 +61,56 @@ namespace SupportBank
             }
 
         }
+
+        public void ReadTransactions(string path)
+        {
+            string? methodName = MethodBase.GetCurrentMethod()?.Name;
+            try
+            {
+                var csv = FileProcessor.ReadCSV(path);
+                Console.WriteLine(csv);
+                if (csv != null)
+                {
+                    csv.Read();
+                    Logger.Info("Starting to read the file...");
+                    csv.ReadHeader();
+                    while (csv.Read())
+                    {
+                        DateTime dateTemp;
+                        float amountTemp;
+
+                        if (DateTime.TryParse(csv.GetField("Date"), out dateTemp)
+                         && (float.TryParse(csv.GetField("Amount"), out amountTemp))
+                         && !(string.IsNullOrEmpty(csv.GetField("To")))
+                         && !(string.IsNullOrEmpty(csv.GetField("From")))
+                         && !(string.IsNullOrEmpty(csv.GetField("Narrative"))))
+                        {
+                            var record = new Transaction
+                            {
+                                Date = dateTemp,
+                                From = csv.GetField("From"),
+                                To = csv.GetField("To"),
+                                Narrative = csv.GetField("Narrative"),
+                                Amount = amountTemp,
+                            };
+                            transactions.Add(record);
+                        }
+                        else
+                        {
+                            Logger.Error("Date: " + csv.GetField("Date") + " From: " + csv.GetField("From")
+                            + " To: " + csv.GetField("To") + " Narrative: " + csv.GetField("Narrative")
+                            + " Amount: " + csv.GetField("Amount"));
+                        }
+                    }
+                    Logger.Info("File has been read...");
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(methodName + " " + e);
+            }
+        }
+
         public void CreateAccounts()
         {
             foreach (var record in transactions)
@@ -92,7 +138,6 @@ namespace SupportBank
                     account.updateOwed(record.Amount);
                     account.UpdateTransaction(record);
                 }
-
             }
         }
 
@@ -127,9 +172,5 @@ namespace SupportBank
                 }
             }
         }
-
-
-
-
     }
 }

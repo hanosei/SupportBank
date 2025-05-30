@@ -1,4 +1,12 @@
-2025-05-29 14:50:01.5400 Info - SupportBank.SupportBank: Starting to read the file...
-2025-05-29 14:50:01.5872 Error - SupportBank.SupportBank: Date: 01/03/2015 From: Ben B To: Sam N Narrative: Lunch Amount: One Cheeseburger
-2025-05-29 14:50:01.5872 Error - SupportBank.SupportBank: Date: Last Thursday From: Sarah T To: Dan W Narrative: Beers Amount: 5.42
-2025-05-29 14:50:01.5872 Info - SupportBank.SupportBank: File has been read...
+2025-05-30 10:47:40.3503 Error - SupportBank.SupportBank: ReadTransactionsFromJSON System.InvalidOperationException: The requested operation requires an element of type 'String', but the target element has type 'Number'.
+   at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.GetString(Int32 index, JsonTokenType expectedType)
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at SupportBank.SupportBank.ReadTransactionsFromJSON(String path) in C:\Users\PreKri\Training\CSharp\SupportBank\SupportBank.cs:line 34
+2025-05-30 10:51:29.5544 Error - SupportBank.SupportBank: ReadTransactionsFromJSON Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Cannot implicitly convert type 'float' to 'bool'
+   at CallSite.Target(Closure, CallSite, Object)
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at SupportBank.SupportBank.ReadTransactionsFromJSON(String path) in C:\Users\PreKri\Training\CSharp\SupportBank\SupportBank.cs:line 34
+2025-05-30 11:00:20.3590 Error - SupportBank.SupportBank: Name not found in the file
+2025-05-30 11:00:28.1385 Error - SupportBank.SupportBank: Name not found in the file
+2025-05-30 11:04:00.0220 Error - SupportBank.SupportBank: Name not found in the file

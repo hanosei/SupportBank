@@ -9,14 +9,12 @@ using NLog;
 using NLog.Config;
 using NLog.Targets;
 using NLog.Fluent;
-
 namespace SupportBank;
 
 public class Program
 {   
     static void Main(string[] args)
     {
-
         var config = new LoggingConfiguration();
         string startupPath = System.IO.Directory.GetCurrentDirectory();
         Console.WriteLine($"{startupPath}/SupportBank.log");
@@ -26,8 +24,13 @@ public class Program
         config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
         LogManager.Configuration = config;
 
+        string TransactionCSVFile = "./DataFiles/DodgyTransactions2015.csv";
+        string TransactionJSONFile = "./DataFiles/Transactions2013.json";
+
         var bank = new SupportBank();
-        bank.ReadCSV("./DodgyTransactions2015.csv");
+        
+        // bank.ReadTransactions(TransactionCSVFile);
+        bank.ReadTransactionsFromJSON(TransactionJSONFile);
         bank.CreateAccounts();
         bool validUserOption = false;
         while (!validUserOption)
@@ -45,9 +48,6 @@ public class Program
                     bank.PrintAnAccount();
                 }
             }
-
         }
-
     }
-
 }
