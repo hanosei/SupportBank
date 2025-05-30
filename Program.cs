@@ -28,10 +28,8 @@ public class Program
 
         var bank = new SupportBank();
 
-        bank.ImportFile(TransactionCSVFile);
+        bank.ImportFile(TransactionJSONFile);
 
-        // bank.ReadTransactionsFromCSV(TransactionCSVFile);
-        // bank.ReadTransactionsFromJSON(TransactionJSONFile);
         bank.CreateAccounts();
 
         bool validUserOption = false;

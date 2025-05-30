@@ -97,22 +97,22 @@ namespace SupportBank
                     csv.ReadHeader();
                     while (csv.Read())
                     {
-                        DateTime dateTemp;
-                        float amountTemp;
+                        DateTime date;
+                        float amount;
 
-                        if (DateTime.TryParse(csv.GetField("Date"), out dateTemp)
-                         && (float.TryParse(csv.GetField("Amount"), out amountTemp))
+                        if (DateTime.TryParse(csv.GetField("Date"), out date)
+                         && (float.TryParse(csv.GetField("Amount"), out amount))
                          && !(string.IsNullOrEmpty(csv.GetField("To")))
                          && !(string.IsNullOrEmpty(csv.GetField("From")))
                          && !(string.IsNullOrEmpty(csv.GetField("Narrative"))))
                         {
                             var record = new Transaction
                             {
-                                Date = dateTemp,
+                                Date = date,
                                 From = csv.GetField("From"),
                                 To = csv.GetField("To"),
                                 Narrative = csv.GetField("Narrative"),
-                                Amount = amountTemp,
+                                Amount = amount,
                             };
                             transactions.Add(record);
                         }
