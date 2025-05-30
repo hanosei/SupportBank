@@ -41,7 +41,7 @@ namespace SupportBank
             string? methodName = MethodBase.GetCurrentMethod()?.Name;
             try
             {
-
+                Logger.Info("Starting to read the JSON file...");
                 List<dynamic> data = FileProcessor.ReadJSON(path);
                 if (data != null)
                 {
@@ -73,6 +73,7 @@ namespace SupportBank
                             Logger.Error("Date: " + item.GetProperty("Date").GetString() + " From: " + item.GetProperty("FromAccount").GetString()
                             + " To: " + item.GetProperty("ToAccount").GetString() + " Narrative: " + item.GetProperty("Narrative").GetString() + " Amount: " + item.GetProperty("Amount").GetSingle());
                         }
+                    Logger.Info("JSON File has been read...");    
                     }
                 }
             }
@@ -93,7 +94,7 @@ namespace SupportBank
                 if (csv != null)
                 {
                     csv.Read();
-                    Logger.Info("Starting to read the file...");
+                    Logger.Info("Starting to read the CSV file...");
                     csv.ReadHeader();
                     while (csv.Read())
                     {
@@ -123,7 +124,7 @@ namespace SupportBank
                             + " Amount: " + csv.GetField("Amount"));
                         }
                     }
-                    Logger.Info("File has been read...");
+                    Logger.Info("CSV File has been read...");
                 }
             }
             catch (Exception e)
